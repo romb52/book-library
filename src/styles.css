@@ -1,0 +1,46 @@
+@import 'bootstrap/dist/css/bootstrap.min.css';
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body.no-scroll{
+  overflow-y: hidden;
+}
+
+#root {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* Забезпечує повну висоту екрану */
+}
+
+section{
+  flex: 1;
+  /* height: auto;
+  min-height: 450px; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #F4F4F4;
+}
+.container{
+  width: 100%; 
+  max-width: 1200px;
+
+}
+
+section > .container{
+  height: calc(100vh - 120px);
+}
+
+.form-label{
+  /* width: 100%; */
+  margin: 0;
+}
+
+
+
+

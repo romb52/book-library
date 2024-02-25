@@ -1,0 +1,31 @@
+h1{
+    margin: 20px 0;
+}
+
+.linkHome {
+    padding: 10px;
+    border-radius: 8px;
+    text-decoration: none;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    max-width: 100px;
+    border: 1px solid #8a9ca33e;
+}
+
+.linkHome:hover {
+    transition: background 0.7s;
+    background-color: #8a9ca33e;
+}
+
+.homeIcon {
+    vertical-align: middle;
+    margin-right: 5px;
+}
+
+.bg {
+    background-image: url('../../share/img/404_.jpg');
+    background-repeat: no-repeat;
+    background-size: 50%;
+    background-position: center;    
+}
