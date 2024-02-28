@@ -12,7 +12,7 @@ export default function Header() {
       <div className={styles.headerTop}>
         <div className='container d-flex align-items-center gap-3'>
         <GiBookCover size={30}/>
-          <h2>LYBRARY</h2>
+          <h2>LIBRARY</h2>
         </div>
       </div>
       <div className={styles.headerMenu}>
