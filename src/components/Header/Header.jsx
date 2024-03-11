@@ -19,10 +19,10 @@ export default function Header() {
         <div className='container'>
           <div className={styles.wrap}>
             <div className='d-flex gap-5'>
-              <Link to="/" className={location.pathname === '/' ? styles.active : ''}>Books</Link>
-              <Link to="/visitors" className={location.pathname === '/visitors' ? styles.active : ''}>Visitors</Link>
-              <Link to="/cards" className={location.pathname === '/cards' ? styles.active : ''}>Cards</Link>
-              <Link to="/statistics" className={location.pathname === '/statistics' ? styles.active : ''}>Statistics</Link>
+              <Link to="/book-library" className={location.pathname === '/book-library' ? styles.active : ''}>Books</Link>
+              <Link to="/book-library/visitors" className={location.pathname === '/book-library/visitors' ? styles.active : ''}>Visitors</Link>
+              <Link to="/book-library/cards" className={location.pathname === '/book-library/cards' ? styles.active : ''}>Cards</Link>
+              <Link to="/book-library/statistics" className={location.pathname === '/book-library/statistics' ? styles.active : ''}>Statistics</Link>
             </div>
           </div>
         </div>

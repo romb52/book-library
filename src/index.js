@@ -14,20 +14,20 @@ const root = createRoot(rootElement);
 
 const router = createBrowserRouter([
   {
-    path: '/',
+    path: '/book-library',
     element: <Books />,
-     errorElement:<Errorpage/>
+    errorElement:<Errorpage/>
   },
   {
-    path: '/visitors',
-    element: <Visitors />,
+    path: '/book-library/visitors',
+    element: <Visitors />,  
   },
   {
-    path: '/cards',
+    path: '/book-library/cards',
     element: <Cards />,
   },
   {
-    path: '/statistics',
+    path: '/book-library/statistics',
     element: <Statistics />,
   },
 ]);
