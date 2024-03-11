@@ -30,6 +30,10 @@ export const visitorsSlice = createSlice({
       if (index !== -1) {
         state.visitors[index] = { ...state.visitors[index], ...updateVisitor };
         localStorage.setItem('visitors', JSON.stringify(state.visitors));
+        if(state.filteredVisitors.length > 0){
+          const findex = state.filteredVisitors.findIndex(visitor => visitor.id === id);
+          state.filteredVisitors[findex] = { ...state.filteredVisitors[findex], ...updateVisitor };      
+        }
       }
     },
     sortVisitors: (state, action) => {                 // Сортування списку відвідувачів за вказаним полем

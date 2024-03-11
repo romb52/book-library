@@ -143,7 +143,7 @@ function Books() {
               <p className='justify-content-center'>{book.copiesAvailable}</p>
 
               <Button className='d-flex gap-1 justify-content-center align-items-center' variant="success"
-                onClick={() => openModal(<EditBookForm bookId={book.id} />)}>
+                onClick={() => openModal(<EditBookForm bookId={book.id}  setIsModalOpen={setIsModalOpen}/>)}>
                 <MdEdit size={18} />Edit
               </Button>
             </div>

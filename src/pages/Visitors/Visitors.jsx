@@ -127,7 +127,7 @@ function Visitors() {
               <p className='justify-content-center'>{visitor.tel}</p>
 
               <Button className='d-flex gap-1 justify-content-center align-items-center' variant="success"
-                onClick={() => openModal(<EditVisitorForm visitorId={visitor.id} />)}>
+                onClick={() => openModal(<EditVisitorForm visitorId={visitor.id} setIsModalOpen={setIsModalOpen}/>)}>
                 <MdEdit size={18} /> Edit
               </Button>
             </div>

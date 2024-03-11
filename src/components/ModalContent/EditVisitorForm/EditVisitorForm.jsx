@@ -14,6 +14,7 @@ export default function EditBookForm({ visitorId, setIsModalOpen }) {
 
   useEffect(() => {   
     setForm({ ...visitor });  
+    setChangedId(visitorId);
 }, [visitorId]);
 
   const changeInput = (e) => {
@@ -27,8 +28,8 @@ export default function EditBookForm({ visitorId, setIsModalOpen }) {
     e.preventDefault();
     //console.log(form)
     dispatch(updateVisitor({ ...form, id: changedId }));
-    setForm(initialForm);
-    setChangedId(0);
+    //setForm(initialForm);
+    //setChangedId(0);
     setIsModalOpen(false); // Закриття модального вікна після редагування книги
   };
 
