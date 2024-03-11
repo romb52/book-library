@@ -4,8 +4,8 @@ import { useState } from 'react';
 import { addBook } from '../../../share/reducers/books.reducer';
 import styles from './AddBookForm.module.css';
 
-export default function AddBookForm() {
-  const initialForm = { title: '', author: '', publicationYear: 0, publisher: '', pageCount: 0,  copiesAvailable: 0 };
+export default function AddBookForm({openModal}) {
+  const initialForm = { title: '', author: '', publicationYear: 0, publisher: '', pageCount: 0, copiesAvailable: 0 };
   const dispatch = useDispatch();
   const [form, setForm] = useState(initialForm);
 
@@ -20,7 +20,7 @@ export default function AddBookForm() {
     e.preventDefault();
     const id = Date.now();
     dispatch(addBook({ ...form, id }));
-    setForm(initialForm);   
+    setForm(initialForm);
   };
 
   return (
@@ -35,7 +35,7 @@ export default function AddBookForm() {
             name='title'
             value={form.title}
             onChange={(e) => changeInput(e)}
-            required 
+            required
           />
         </Form.Group>
 
@@ -46,7 +46,7 @@ export default function AddBookForm() {
             value={form.author}
             name='author'
             onChange={(e) => changeInput(e)}
-            required 
+            required
           />
         </Form.Group>
 
@@ -59,7 +59,7 @@ export default function AddBookForm() {
             value={form.publicationYear}
             onChange={(e) => changeInput(e)}
             min={0}
-            required 
+            required
           />
         </Form.Group>
 
@@ -70,7 +70,7 @@ export default function AddBookForm() {
             name='publisher'
             value={form.publisher}
             onChange={(e) => changeInput(e)}
-            required 
+            required
           />
         </Form.Group>
 
@@ -83,7 +83,7 @@ export default function AddBookForm() {
             value={form.pageCount}
             onChange={(e) => changeInput(e)}
             min={0}
-            required 
+            required
           />
         </Form.Group>
 
@@ -96,14 +96,18 @@ export default function AddBookForm() {
             name='copiesAvailable'
             onChange={(e) => changeInput(e)}
             min={0}
-            required 
+            required
           />
         </Form.Group>
+        <div className='d-flex justify-content-center'>
+          <Button className='my-3 me-2 w-50' variant='outline-secondary' onClick={() => openModal()}>
+            Cancel
+          </Button>
 
-        <Button className='my-3' variant='primary' type='submit'>
-         Add book
-        </Button>
-
+          <Button className='my-3 w-50' variant='primary' type='submit'>
+            Add book
+          </Button>
+        </div>
       </Form>
     </>
   );

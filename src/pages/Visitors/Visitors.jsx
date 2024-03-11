@@ -67,7 +67,7 @@ function Visitors() {
         {/* Заголовок та кнопка для відкриття модального вікна для додавання нового відвідувача */}
         <div className={`d-flex justify-content-between ${styles.titlewrap}`}>
           <h2>ALL VISITORS:</h2>
-          <Button className='d-flex gap-1 justify-content-center align-items-center' onClick={() => openModal(<AddVisitorForm />)}> <FaPlus /> New visitor</Button>
+          <Button className='d-flex gap-1 justify-content-center align-items-center' onClick={() => openModal(<AddVisitorForm openModal={openModal}/>)}> <FaPlus /> New visitor</Button>
         </div>
 
         {/* Модальне вікно для додавання та редагування відвідувачів */}

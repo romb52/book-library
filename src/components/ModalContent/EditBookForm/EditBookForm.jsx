@@ -11,14 +11,16 @@ export default function EditBookForm({ bookId, setIsModalOpen }) {
   const dispatch = useDispatch();
   const [form, setForm] = useState({ ...book });
   const [changedId, setChangedId] = useState(bookId);
+  //console.log(book, form);
 
   
   useEffect(() => {   
-    setForm({ ...book });  
+    setForm({ ...book }); 
+    setChangedId(bookId); 
 }, [bookId]);
 
   const changeInput = (e) => {
-    //console.log(e.target.name, e.target.value)
+   // console.log(e.target.name, e.target.value)
     setForm((prev) => {
       return { ...prev, [e.target.name]: e.target.value };
     });
@@ -26,10 +28,10 @@ export default function EditBookForm({ bookId, setIsModalOpen }) {
 
   const submiEditBook = (e) => {
     e.preventDefault();
-   // console.log(form)
+    //console.log(form)
     dispatch(updateBook({ ...form, id: changedId }));
-    setForm(initialForm);
-    setChangedId(0);
+    //setForm(initialForm);
+    //setChangedId(0);
     setIsModalOpen(false); // Закриття модального вікна після редагування книги
   };
 

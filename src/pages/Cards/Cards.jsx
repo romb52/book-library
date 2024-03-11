@@ -74,7 +74,7 @@ function Cards() {
         {/* Заголовок та кнопка для відкриття модального вікна для додавання нової картки */}
         <div className={`d-flex justify-content-between ${styles.titlewrap}`}>
           <h2>ALL CARDS:</h2>
-          <Button className='d-flex gap-1 justify-content-center align-items-center' onClick={() => openModal(<AddCardForm />)}>
+          <Button className='d-flex gap-1 justify-content-center align-items-center' onClick={() => openModal(<AddCardForm openModal={openModal}/>)}>
             <FaPlus /> New card
           </Button>
         </div>

@@ -6,19 +6,19 @@ import { decreaseBookCount } from '../../../share/reducers/books.reducer';
 import { FaRegSave } from "react-icons/fa";
 import styles from '../AddBookForm/AddBookForm.module.css';
 
-export default function AddVisitorForm() {
+export default function AddVisitorForm({ openModal }) {
     const visitors = useSelector(state => state.visitors.visitors);
     const books = useSelector(state => state.books.books);
 
     // visitor: visitors.length > 0 ? visitors[0].name : "", book: books.length > 0 ? books[0].title : ""
-    
+
     const initialForm = { id: 0, visitorId: 0, bookId: 0, visitor: "", book: "", borrowDate: "", returnDate: "" };
     const dispatch = useDispatch();
     const [form, setForm] = useState(initialForm);
 
     const changeInput = (e) => {
         const id = e.target.options[e.target.selectedIndex].getAttribute('data-id');
-       // console.log(e.target.name, e.target.value, id);
+        // console.log(e.target.name, e.target.value, id);
         if (id) {
             setForm((prev) => {
                 return { ...prev, [e.target.name]: e.target.value, [`${e.target.name}Id`]: id };
@@ -34,7 +34,7 @@ export default function AddVisitorForm() {
         dispatch(decreaseBookCount({ id: form.bookId }));
         setForm(initialForm);
     };
-   
+
     return (
         <>
             <h2 className={styles.title}>New card</h2>
@@ -60,9 +60,15 @@ export default function AddVisitorForm() {
                     </Form.Select>
                 </Form.Group>
 
-                <Button className='d-flex gap-1 justify-content-center align-items-center my-3' variant='primary' type='submit'><FaRegSave />
-                    Save card
-                </Button>
+                <div className='d-flex justify-content-center'>
+                    <Button className='my-3 me-2 w-50' variant='outline-secondary' onClick={() => openModal()}>
+                        Cancel
+                    </Button>
+
+                    <Button className='d-flex  w-50 justify-content-center align-items-center my-3' variant='primary' type='submit'><FaRegSave />
+                        Save card
+                    </Button>
+                </div>
 
             </Form>
         </>

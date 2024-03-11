@@ -66,7 +66,7 @@ function Books() {
 
         <div className={`d-flex justify-content-between ${styles.titlewrap}`}>
           <h2>ALL BOOKS:</h2>
-          <Button className='d-flex gap-1 justify-content-center align-items-center' onClick={() => openModal(<AddBookForm />)}> <FaPlus /> New book</Button>
+          <Button className='d-flex gap-1 justify-content-center align-items-center' onClick={() => openModal(<AddBookForm openModal={openModal}/>)}> <FaPlus /> New book</Button>
         </div>
 
         {/* Модальне вікно для додавання та редагування книг */}

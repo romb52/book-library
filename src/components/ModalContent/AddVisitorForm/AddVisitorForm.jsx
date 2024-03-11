@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { addVisitor } from '../../../share/reducers/visitor.reducer';
 import styles from '../AddBookForm/AddBookForm.module.css';
 
-export default function AddVisitorForm() {
+export default function AddVisitorForm({ openModal }) {
     const initialForm = { id: 0, name: '', tel: '' };
     const dispatch = useDispatch();
     const [form, setForm] = useState(initialForm);
@@ -59,9 +59,15 @@ export default function AddVisitorForm() {
                     />
                 </Form.Group>
 
-                <Button className='my-3' variant='primary' type='submit'>
-                    Add new visitor
-                </Button>
+                <div className='d-flex justify-content-center'>
+                    <Button className='my-3 me-2 w-50' variant='outline-secondary' onClick={() => openModal()}>
+                        Cancel
+                    </Button>
+
+                    <Button className='my-3 w-50' variant='primary' type='submit'>
+                        Add new visitor
+                    </Button>
+                </div>
 
             </Form>
         </>

@@ -1,4 +1,3 @@
-
 .modalWrap {
   position: absolute;
   top: 0;
@@ -12,9 +11,11 @@
   justify-content: center;
   align-items: center;
 }
+
 .modalWrap.open {
   display: flex;
 }
+
 /* .modalWrap.right{
   justify-content: flex-end;
 }
@@ -27,7 +28,7 @@
   min-width: 400px;
   /* min-height: 400px; */
   overflow-y: auto;
-   background-color: white; 
+  background-color: white;
   border-radius: 10px;
   padding: 20px;
   position: relative;
@@ -41,11 +42,12 @@
   z-index: 2;
 }
 
-.closeModal{
+.closeModal {
   cursor: pointer;
- 
+  border-radius: 50%;
+  transition: background-color 0.3s ease;
 }
 
-.closeModal:hover{
-  color: rgb(223, 55, 55);
+.closeModal:hover {
+  background-color: #76767646;
 }
