@@ -45,6 +45,15 @@ export const visitorsSlice = createSlice({
         return valueA > valueB ? 1 : -1;
 
       });
+      if(state.filteredVisitors.length > 0){
+        state.filteredVisitors.sort((a, b) => {
+          const valueA = isNumber ? a[field] : (a[field] && a[field].toLowerCase());
+          const valueB = isNumber ? b[field] : (b[field] && b[field].toLowerCase());
+  
+          return valueA > valueB ? 1 : -1;
+  
+        });
+      }
     },
     filterVisitors: (state, action) => {                  // Фільтрація списку відвідувачів за пошуковим запитом
       const searchQuery = action.payload.toLowerCase(); // Конвертуємо пошуковий запит в нижній регістр
