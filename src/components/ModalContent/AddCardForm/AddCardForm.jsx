@@ -65,7 +65,7 @@ export default function AddVisitorForm({ openModal }) {
                         Cancel
                     </Button>
 
-                    <Button className='d-flex  w-50 justify-content-center align-items-center my-3' variant='primary' type='submit'><FaRegSave />
+                    <Button className='d-flex gap-1  w-50 justify-content-center align-items-center my-3' variant='primary' type='submit'><FaRegSave />
                         Save card
                     </Button>
                 </div>
