@@ -5,8 +5,8 @@ import { useState } from 'react';
 import { Button, Form, InputGroup } from 'react-bootstrap';
 import { sortBooks, filterBooks, unsortedBooks } from '../../share/reducers/books.reducer';
 import { MdEdit } from "react-icons/md";
-import { FaPlus, FaSortDown, FaSortAlphaDown, FaSortNumericDown, FaSearch  } from "react-icons/fa";
-import { IoChevronBack, IoSearch } from "react-icons/io5";
+import { FaPlus, FaSortDown, FaSortAlphaDown, FaSortNumericDown, FaSearch } from "react-icons/fa";
+import { IoChevronBack, IoSearch, IoReturnUpBack } from "react-icons/io5";
 import Modal from '../../components/modal/Modal';
 import AddBookForm from '../../components/ModalContent/AddBookForm/AddBookForm';
 import EditBookForm from '../../components/ModalContent/EditBookForm/EditBookForm';
@@ -98,7 +98,7 @@ function Books() {
                 <Button className='d-flex gap-1 align-items-center' variant='primary' type='submit'>
                   {sortField === 'copiesAvailable' ? <FaSortNumericDown /> : <FaSortAlphaDown />}
                 </Button>
-              </InputGroup>          
+              </InputGroup>
             </Form>
           </div>
 
@@ -117,14 +117,14 @@ function Books() {
               <InputGroup >
                 <InputGroup.Text >Search:</InputGroup.Text>
                 <Form.Control
-                name='search'        
-                value={searchQuery}
-                onChange={(e) => searchInput(e)}
-              />
+                  name='search'
+                  value={searchQuery}
+                  onChange={(e) => searchInput(e)}
+                />
                 <Button className='d-flex gap-1 align-items-center' variant='primary' type='submit'>
-                <FaSearch  />
+                  <FaSearch />
                 </Button>
-              </InputGroup>  
+              </InputGroup>
             </Form>
           </div>
         </div>
@@ -190,41 +190,47 @@ function Books() {
 
         </div>
 
-        {/* Пагінація */}
-        {filteredBooks.length > 0 ? (
-          <div className={styles.pagination}>
-            <ul className='pagination'>
-              {Array.from({ length: Math.ceil(filteredBooks.length / booksPerPage) }).map((_, index) => (
-                <li key={index} className='page-item'>
-                  <button
-                    className='page-link'
-                    onClick={() => setCurrentPage(index + 1)}
-                  >
-                    {index + 1}
-                  </button>
-                </li>
-              ))}
-            </ul>
-          </div>
-        ) : (
-          <div className={styles.pagination}>
-            <ul className='pagination'>
-              {Array.from({ length: Math.ceil(books.length / booksPerPage) }).map((_, index) => (
-                <li key={index} className='page-item'>
-                  <button
-                    className='page-link'
-                    onClick={() => setCurrentPage(index + 1)}
-                  >
-                    {index + 1}
-                  </button>
-                </li>
-              ))}
-            </ul>
-          </div>
-        )}
+        <div className="">
+          {/* Кнопка для відображення всіх книг, якщо відфільтровані */}
+          {filteredBooks.length > 0 && <div className=""><Button variant="outline-primary" className='d-flex gap-1 justify-content-center align-items-center' onClick={() => dispatch(unsortedBooks())}>
+            <IoReturnUpBack />Back to all books</Button></div>}
+
+          {/* Пагінація */}
+          {filteredBooks.length > 0 ? (
+            <div className={styles.pagination}>
+              <ul className='pagination'>
+                {Array.from({ length: Math.ceil(filteredBooks.length / booksPerPage) }).map((_, index) => (
+                  <li key={index} className='page-item'>
+                    <button
+                      className='page-link'
+                      onClick={() => setCurrentPage(index + 1)}
+                    >
+                      {index + 1}
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ) : (
+            <div className={styles.pagination}>
+              <ul className='pagination'>
+                {Array.from({ length: Math.ceil(books.length / booksPerPage) }).map((_, index) => (
+                  <li key={index} className='page-item'>
+                    <button
+                      className='page-link'
+                      onClick={() => setCurrentPage(index + 1)}
+                    >
+                      {index + 1}
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+        </div>
 
         {/* Кнопка для відображення всіх книг, якщо відфільтровані */}
-        {filteredBooks.length > 0 && <div><Button className='d-flex gap-1 justify-content-center align-items-center' onClick={() => dispatch(unsortedBooks())}><IoChevronBack />Back to all books...</Button></div>}
+        {/* {filteredBooks.length > 0 && <div><Button className='d-flex gap-1 justify-content-center align-items-center' onClick={() => dispatch(unsortedBooks())}><IoChevronBack />Back to all books...</Button></div>} */}
 
       </div>
     </section>
