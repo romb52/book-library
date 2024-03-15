@@ -1,4 +1,4 @@
-import { Button, Form } from 'react-bootstrap';
+import { Button, Form, FloatingLabel } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { useState } from 'react';
 import { addCard } from '../../../share/reducers/cards.reducer';
@@ -40,7 +40,7 @@ export default function AddVisitorForm({ openModal }) {
             <h2 className={styles.title}>New card</h2>
 
             <Form className='d-flex flex-column gap-1 mb-2' onSubmit={(e) => submitNewCard(e)}>
-                <Form.Group className='mb-3' controlId='name'>
+                {/* <Form.Group className='mb-3' controlId='name'>
                     <Form.Label>Visitor</Form.Label>
                     <Form.Select name='visitor' value={form.visitor} onChange={(e) => changeInput(e)}>
                         <option>Please select a visitor from the dropdown list</option>
@@ -58,15 +58,42 @@ export default function AddVisitorForm({ openModal }) {
                             <option key={book.id} data-id={book.id} value={book.title}>{book.title}</option>
                         ))}
                     </Form.Select>
-                </Form.Group>
+                </Form.Group> */}
+
+                <FloatingLabel
+                    controlId="visitor"
+                    label="Visitor"
+                    className="mb-3"
+                >
+                    <Form.Select name='visitor' value={form.visitor} onChange={(e) => changeInput(e)}>
+                        <option>Please select a visitor from the dropdown list</option>
+                        {visitors.map(visitor => (
+                            <option key={visitor.id} value={visitor.name} data-id={visitor.id}>{visitor.name}</option>
+                        ))}
+                    </Form.Select>
+                </FloatingLabel>
+
+                
+                <FloatingLabel
+                    controlId="book"
+                    label="Book"
+                    className="mb-3"
+                >
+                     <Form.Select name='book' value={form.book} onChange={(e) => changeInput(e)}>
+                        <option>Please select a book from the dropdown list</option>
+                        {books.map(book => ((book.copiesAvailable > 0) &&
+                            <option key={book.id} data-id={book.id} value={book.title}>{book.title}</option>
+                        ))}
+                    </Form.Select>
+                </FloatingLabel>
 
                 <div className='d-flex justify-content-center'>
-                    <Button className='my-3 me-2 w-50' variant='outline-secondary' onClick={() => openModal()}>
-                        Cancel
+                    <Button className='mt-3 me-2 w-50' variant='outline-secondary' onClick={() => openModal()}>
+                        CANCEL
                     </Button>
 
-                    <Button className='d-flex gap-1  w-50 justify-content-center align-items-center my-3' variant='primary' type='submit'><FaRegSave />
-                        Save card
+                    <Button className='d-flex gap-1  w-50 justify-content-center align-items-center mt-3' variant='primary' type='submit'><FaRegSave />
+                        SAVE CARD
                     </Button>
                 </div>
 

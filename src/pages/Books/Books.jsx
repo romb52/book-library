@@ -2,10 +2,10 @@
 import { withLayout } from '../../components/Main/Main';
 import { useSelector, useDispatch } from 'react-redux';
 import { useState } from 'react';
-import { Button, Form } from 'react-bootstrap';
+import { Button, Form, InputGroup } from 'react-bootstrap';
 import { sortBooks, filterBooks, unsortedBooks } from '../../share/reducers/books.reducer';
 import { MdEdit } from "react-icons/md";
-import { FaPlus, FaSortDown } from "react-icons/fa";
+import { FaPlus, FaSortDown, FaSortAlphaDown, FaSortNumericDown, FaSearch  } from "react-icons/fa";
 import { IoChevronBack, IoSearch } from "react-icons/io5";
 import Modal from '../../components/modal/Modal';
 import AddBookForm from '../../components/ModalContent/AddBookForm/AddBookForm';
@@ -66,7 +66,7 @@ function Books() {
 
         <div className={`d-flex justify-content-between ${styles.titlewrap}`}>
           <h2>ALL BOOKS:</h2>
-          <Button className='d-flex gap-1 justify-content-center align-items-center' onClick={() => openModal(<AddBookForm openModal={openModal}/>)}> <FaPlus /> New book</Button>
+          <Button className='d-flex gap-1 justify-content-center align-items-center' onClick={() => openModal(<AddBookForm openModal={openModal} />)}> <FaPlus /> New book</Button>
         </div>
 
         {/* Модальне вікно для додавання та редагування книг */}
@@ -77,8 +77,8 @@ function Books() {
         {/* Форми для сортування  */}
         <div className='row justify-content-between'>
           <div className="col-5 pe-1">
-            <Form className='d-flex gap-2 mb-1 align-items-center' onSubmit={(e) => submitSort(e)}>
-              <Form.Label style={{ whiteSpace: 'nowrap' }}>Sort by:</Form.Label>
+            <Form className='d-flex gap-2 my-3 align-items-center' onSubmit={(e) => submitSort(e)}>
+              {/* <Form.Label style={{ whiteSpace: 'nowrap' }}>Sort by:</Form.Label>
               <Form.Select value={sortField} onChange={sortChange}>
                 <option value="author">author</option>
                 <option value="title">title</option>
@@ -86,14 +86,26 @@ function Books() {
               </Form.Select>
               <Button className='my-3 d-flex gap-1 align-items-center' variant='primary' type='submit'><FaSortDown />
                 Sort
-              </Button>
+              </Button> */}
+
+              <InputGroup >
+                <InputGroup.Text >Sort by:</InputGroup.Text>
+                <Form.Select value={sortField} onChange={sortChange}>
+                  <option value="author">author</option>
+                  <option value="title">title</option>
+                  <option value="copiesAvailable">count</option>
+                </Form.Select>
+                <Button className='d-flex gap-1 align-items-center' variant='primary' type='submit'>
+                  {sortField === 'copiesAvailable' ? <FaSortNumericDown /> : <FaSortAlphaDown />}
+                </Button>
+              </InputGroup>          
             </Form>
           </div>
 
           {/* Форми для пошуку */}
           <div className='col-5 ps-1'>
-            <Form className='d-flex gap-2 mb-1 align-items-center' onSubmit={(e) => submitSearch(e)}>
-              <Form.Label>Search:</Form.Label>
+            <Form className='d-flex gap-2 my-3 align-items-center' onSubmit={(e) => submitSearch(e)}>
+              {/* <Form.Label>Search:</Form.Label>
               <Form.Control
                 name='search'
                 value={searchQuery}
@@ -101,7 +113,18 @@ function Books() {
               />
               <Button className='my-3 d-flex gap-1 align-items-center' variant='primary' type='submit'><IoSearch />
                 Search
-              </Button>
+              </Button> */}
+              <InputGroup >
+                <InputGroup.Text >Search:</InputGroup.Text>
+                <Form.Control
+                name='search'        
+                value={searchQuery}
+                onChange={(e) => searchInput(e)}
+              />
+                <Button className='d-flex gap-1 align-items-center' variant='primary' type='submit'>
+                <FaSearch  />
+                </Button>
+              </InputGroup>  
             </Form>
           </div>
         </div>
@@ -143,7 +166,7 @@ function Books() {
               <p className='justify-content-center'>{book.copiesAvailable}</p>
 
               <Button className='d-flex gap-1 justify-content-center align-items-center' variant="success"
-                onClick={() => openModal(<EditBookForm bookId={book.id}  setIsModalOpen={setIsModalOpen}/>)}>
+                onClick={() => openModal(<EditBookForm bookId={book.id} setIsModalOpen={setIsModalOpen} openModal={openModal} />)}>
                 <MdEdit size={18} />Edit
               </Button>
             </div>
@@ -159,7 +182,7 @@ function Books() {
               <p className='justify-content-center'>{book.copiesAvailable}</p>
 
               <Button className='d-flex gap-1 justify-content-center align-items-center' variant="success"
-                onClick={() => openModal(<EditBookForm bookId={book.id} setIsModalOpen={setIsModalOpen} />)}>
+                onClick={() => openModal(<EditBookForm bookId={book.id} setIsModalOpen={setIsModalOpen} openModal={openModal} />)}>
                 <MdEdit size={18} />Edit
               </Button>
             </div>

@@ -1,11 +1,12 @@
 import { Button, Form } from 'react-bootstrap';
+import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import { useDispatch } from 'react-redux';
 import { useState } from 'react';
 import { addBook } from '../../../share/reducers/books.reducer';
 import styles from './AddBookForm.module.css';
 
-export default function AddBookForm({openModal}) {
-  const initialForm = { title: '', author: '', publicationYear: 0, publisher: '', pageCount: 0, copiesAvailable: 0 };
+export default function AddBookForm({ openModal }) {
+  const initialForm = { title: '', author: '', publicationYear: '', publisher: '', pageCount: '', copiesAvailable: '' };
   const dispatch = useDispatch();
   const [form, setForm] = useState(initialForm);
 
@@ -28,7 +29,7 @@ export default function AddBookForm({openModal}) {
       <h2 className={styles.title}>Add book</h2>
 
       <Form className='d-flex flex-column gap-1 mb-2' onSubmit={(e) => submitAddBook(e)}>
-        <Form.Group className='mb-3' controlId='title'>
+        {/* <Form.Group className='mb-3' controlId='title'>
           <Form.Label>Title</Form.Label>
           <Form.Control
             placeholder='Title'
@@ -37,9 +38,23 @@ export default function AddBookForm({openModal}) {
             onChange={(e) => changeInput(e)}
             required
           />
-        </Form.Group>
+        </Form.Group> */}
 
-        <Form.Group className='mb-3' controlId='author'>
+        <FloatingLabel
+          controlId="title"
+          label="Title"
+          className="mb-3"
+        >
+          <Form.Control
+            placeholder='Title'
+            name='title'
+            value={form.title}
+            onChange={(e) => changeInput(e)}
+            required
+          />
+        </FloatingLabel>
+
+        {/* <Form.Group className='mb-3' controlId='author'>
           <Form.Label>Author</Form.Label>
           <Form.Control
             placeholder='Author'
@@ -48,8 +63,22 @@ export default function AddBookForm({openModal}) {
             onChange={(e) => changeInput(e)}
             required
           />
-        </Form.Group>
+        </Form.Group> */}
 
+        <FloatingLabel
+          controlId="author"
+          label="Author"
+          className="mb-3"
+        >
+          <Form.Control
+            placeholder='Author'
+            value={form.author}
+            name='author'
+            onChange={(e) => changeInput(e)}
+            required
+          />
+        </FloatingLabel>
+        {/* 
         <Form.Group className='mb-3' controlId='title'>
           <Form.Label>Publication year</Form.Label>
           <Form.Control
@@ -61,8 +90,24 @@ export default function AddBookForm({openModal}) {
             min={0}
             required
           />
-        </Form.Group>
+        </Form.Group> */}
 
+        <FloatingLabel
+          controlId="publicationYear"
+          label="Publication year"
+          className="mb-3"
+        >
+          <Form.Control
+            type='number'
+            placeholder='Publication year'
+            name='publicationYear'
+            value={form.publicationYear}
+            onChange={(e) => changeInput(e)}
+            min={0}
+            required
+          />
+        </FloatingLabel>
+        {/* 
         <Form.Group className='mb-3' controlId='title'>
           <Form.Label>Publisher</Form.Label>
           <Form.Control
@@ -72,9 +117,23 @@ export default function AddBookForm({openModal}) {
             onChange={(e) => changeInput(e)}
             required
           />
-        </Form.Group>
+        </Form.Group> */}
 
-        <Form.Group className='mb-3' controlId='title'>
+        <FloatingLabel
+          controlId="publisher"
+          label="Publisher"
+          className="mb-3"
+        >
+          <Form.Control
+            placeholder='Publisher'
+            name='publisher'
+            value={form.publisher}
+            onChange={(e) => changeInput(e)}
+            required
+          />
+        </FloatingLabel>
+
+        {/* <Form.Group className='mb-3' controlId='title'>
           <Form.Label>Page count</Form.Label>
           <Form.Control
             type='number'
@@ -85,9 +144,26 @@ export default function AddBookForm({openModal}) {
             min={0}
             required
           />
-        </Form.Group>
+        </Form.Group> */}
 
-        <Form.Group className='mb-3' controlId='count'>
+
+        <FloatingLabel
+          controlId="pageCount"
+          label="Page count"
+          className="mb-3"
+        >
+          <Form.Control
+            type='number'
+            placeholder='Page count'
+            name='pageCount'
+            value={form.pageCount}
+            onChange={(e) => changeInput(e)}
+            min={0}
+            required
+          />
+        </FloatingLabel>
+
+        {/* <Form.Group className='mb-3' controlId='count'>
           <Form.Label>Count</Form.Label>
           <Form.Control
             type='number'
@@ -98,14 +174,31 @@ export default function AddBookForm({openModal}) {
             min={0}
             required
           />
-        </Form.Group>
+        </Form.Group> */}
+
+        <FloatingLabel
+          controlId="copiesAvailable"
+          label="Count"
+          className="mb-3"
+        >
+          <Form.Control
+            type='number'
+            value={form.copiesAvailable}
+            placeholder='count'
+            name='copiesAvailable'
+            onChange={(e) => changeInput(e)}
+            min={0}
+            required
+          />
+        </FloatingLabel>
+
         <div className='d-flex justify-content-center'>
-          <Button className='my-3 me-2 w-50' variant='outline-secondary' onClick={() => openModal()}>
-            Cancel
+          <Button className='mt-3 me-2 w-50' variant='outline-secondary' onClick={() => openModal()}>
+            CANCEL
           </Button>
 
-          <Button className='my-3 w-50' variant='primary' type='submit'>
-            Add book
+          <Button className='mt-3 w-50' variant='primary' type='submit'>
+            ADD BOOK
           </Button>
         </div>
       </Form>

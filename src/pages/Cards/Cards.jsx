@@ -1,10 +1,10 @@
 import { withLayout } from '../../components/Main/Main';
 import { useSelector, useDispatch } from 'react-redux';
 import { useState } from 'react';
-import { Button, Form } from 'react-bootstrap';
+import { Button, Form, InputGroup } from 'react-bootstrap';
 import { sortCards, filterCards, unsortedCards, updateCard } from '../../share/reducers/cards.reducer';
 import { increaseBookCount } from '../../share/reducers/books.reducer';
-import { FaPlus, FaSortDown } from "react-icons/fa";
+import { FaPlus, FaSortDown, FaSortAlphaDown, FaSortNumericDown, FaSearch } from "react-icons/fa";
 import { IoChevronBack, IoSearch } from "react-icons/io5";
 import { GiReturnArrow } from "react-icons/gi";
 import Modal from '../../components/modal/Modal';
@@ -74,7 +74,7 @@ function Cards() {
         {/* Заголовок та кнопка для відкриття модального вікна для додавання нової картки */}
         <div className={`d-flex justify-content-between ${styles.titlewrap}`}>
           <h2>ALL CARDS:</h2>
-          <Button className='d-flex gap-1 justify-content-center align-items-center' onClick={() => openModal(<AddCardForm openModal={openModal}/>)}>
+          <Button className='d-flex gap-1 justify-content-center align-items-center' onClick={() => openModal(<AddCardForm openModal={openModal} />)}>
             <FaPlus /> New card
           </Button>
         </div>
@@ -87,8 +87,8 @@ function Cards() {
         {/* Форми для сортування */}
         <div className='row justify-content-between'>
           <div className="col-5 pe-1">
-            <Form className='d-flex gap-2 mb-1 align-items-center' onSubmit={(e) => submitSort(e)}>
-              <Form.Label style={{ whiteSpace: 'nowrap' }}>Sort by:</Form.Label>
+            <Form className='d-flex gap-2 my-3 align-items-center' onSubmit={(e) => submitSort(e)}>
+              {/* <Form.Label style={{ whiteSpace: 'nowrap' }}>Sort by:</Form.Label>
               <Form.Select value={sortField} onChange={sortChange}>
                 <option value="returnDate">return date</option>
                 <option value="borrowDate">borrow Date</option>
@@ -97,14 +97,26 @@ function Cards() {
               </Form.Select>
               <Button className='my-3 d-flex gap-1 align-items-center' variant='primary' type='submit'><FaSortDown />
                 Sort
-              </Button>
+              </Button> */}
+              <InputGroup >
+                <InputGroup.Text >Sort by:</InputGroup.Text>
+                <Form.Select value={sortField} onChange={sortChange}>
+                  <option value="returnDate">return date</option>
+                  <option value="borrowDate">borrow Date</option>
+                  <option value="visitor">visitor</option>
+                  <option value="book">book</option>
+                </Form.Select>
+                <Button className='d-flex gap-1 align-items-center' variant='primary' type='submit'>
+                  {sortField === 'returnDate' || sortField === 'borrowDate' ? <FaSortNumericDown /> : <FaSortAlphaDown />}
+                </Button>
+              </InputGroup>
             </Form>
           </div>
 
           {/* Форми для пошуку */}
           <div className='col-5 ps-1'>
-            <Form className='d-flex gap-2 mb-1 align-items-center' onSubmit={(e) => submitSearch(e)}>
-              <Form.Label>Search:</Form.Label>
+            <Form className='d-flex gap-2 my-3 align-items-center' onSubmit={(e) => submitSearch(e)}>
+              {/* <Form.Label>Search:</Form.Label>
               <Form.Control
                 name='search'
                 value={searchQuery}
@@ -112,7 +124,19 @@ function Cards() {
               />
               <Button className='my-3 d-flex gap-1 align-items-center' variant='primary' type='submit'><IoSearch />
                 Search
-              </Button>
+              </Button> */}
+
+              <InputGroup >
+                <InputGroup.Text >Search:</InputGroup.Text>
+                <Form.Control
+                  name='search'
+                  value={searchQuery}
+                  onChange={(e) => searchInput(e)}
+                />
+                <Button className='d-flex gap-1 align-items-center' variant='primary' type='submit'>
+                  <FaSearch />
+                </Button>
+              </InputGroup>
             </Form>
           </div>
         </div>
