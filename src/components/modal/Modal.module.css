@@ -24,7 +24,7 @@
 } */
 .modalInner {
   max-width: 90vw;
-  max-height: 80vh;
+  max-height: 90vh;
   min-width: 400px;
   /* min-height: 400px; */
   overflow-y: auto;
