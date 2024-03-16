@@ -190,9 +190,9 @@ function Books() {
 
         </div>
 
-        <div className="">
+        <div className={styles.footerFlex}>
           {/* Кнопка для відображення всіх книг, якщо відфільтровані */}
-          {filteredBooks.length > 0 && <div className=""><Button variant="outline-primary" className='d-flex gap-1 justify-content-center align-items-center' onClick={() => dispatch(unsortedBooks())}>
+          {filteredBooks.length > 0 && <div className={styles.leftContent}><Button variant="outline-primary" className='d-flex gap-1 justify-content-center align-items-center' onClick={() => dispatch(unsortedBooks())}>
             <IoReturnUpBack />Back to all books</Button></div>}
 
           {/* Пагінація */}
