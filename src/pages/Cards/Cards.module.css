@@ -50,6 +50,7 @@
   
   .pagination {
     display: flex;
+    flex: 1;
     justify-content: center;
     align-items: center;
     padding: 10px;
@@ -57,6 +58,10 @@
   
   .pagination li {
     padding-right: 10px;
+  }
+
+  .pagination ul {
+    margin: 0;
   }
   
   .titlewrap {
@@ -74,6 +79,19 @@
     align-items: center;
     justify-content: center;
     margin: 0;
+  }
+
+  .footerFlex {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 15px;
+  }
+
+  .leftContent {
+    display: flex;
+    align-items: center;
+    gap: 10px;
   }
 
   @media (max-width: 768px) {

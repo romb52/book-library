@@ -5,7 +5,7 @@ import { Button, Form, InputGroup } from 'react-bootstrap';
 import { sortCards, filterCards, unsortedCards, updateCard } from '../../share/reducers/cards.reducer';
 import { increaseBookCount } from '../../share/reducers/books.reducer';
 import { FaPlus, FaSortDown, FaSortAlphaDown, FaSortNumericDown, FaSearch } from "react-icons/fa";
-import { IoChevronBack, IoSearch } from "react-icons/io5";
+import { IoChevronBack, IoSearch, IoReturnUpBack } from "react-icons/io5";
 import { GiReturnArrow } from "react-icons/gi";
 import Modal from '../../components/modal/Modal';
 import AddCardForm from '../../components/ModalContent/AddCardForm/AddCardForm';
@@ -186,41 +186,47 @@ function Cards() {
 
         </div>
 
-        {/* Відображення пагінації */}
-        {filteredCards.length > 0 ? (
-          <div className={styles.pagination}>
-            <ul className='pagination'>
-              {Array.from({ length: Math.ceil(filteredCards.length / cardsPerPage) }).map((_, index) => (
-                <li key={index} className='page-item'>
-                  <button
-                    className='page-link'
-                    onClick={() => setCurrentPage(index + 1)}
-                  >
-                    {index + 1}
-                  </button>
-                </li>
-              ))}
-            </ul>
-          </div>
-        ) : (
-          <div className={styles.pagination}>
-            <ul className='pagination'>
-              {Array.from({ length: Math.ceil(cards.length / cardsPerPage) }).map((_, index) => (
-                <li key={index} className='page-item'>
-                  <button
-                    className='page-link'
-                    onClick={() => setCurrentPage(index + 1)}
-                  >
-                    {index + 1}
-                  </button>
-                </li>
-              ))}
-            </ul>
-          </div>
-        )}
+        <div className={styles.footerFlex}>
+          {/* Кнопка для відображення всіх книг, якщо відфільтровані */}
+          {filteredCards.length > 0 && <div className={styles.leftContent}><Button variant="outline-primary" className='d-flex gap-1 justify-content-center align-items-center' onClick={() => dispatch(unsortedCards())}>
+            <IoReturnUpBack />Back to all cards...</Button></div>}
+           
+          {/* Відображення пагінації */}
+          {filteredCards.length > 0 ? (
+            <div className={styles.pagination}>
+              <ul className='pagination'>
+                {Array.from({ length: Math.ceil(filteredCards.length / cardsPerPage) }).map((_, index) => (
+                  <li key={index} className='page-item'>
+                    <button
+                      className='page-link'
+                      onClick={() => setCurrentPage(index + 1)}
+                    >
+                      {index + 1}
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ) : (
+            <div className={styles.pagination}>
+              <ul className='pagination'>
+                {Array.from({ length: Math.ceil(cards.length / cardsPerPage) }).map((_, index) => (
+                  <li key={index} className='page-item'>
+                    <button
+                      className='page-link'
+                      onClick={() => setCurrentPage(index + 1)}
+                    >
+                      {index + 1}
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+        </div>
 
         {/* Кнопка для повернення до всіх карток, якщо вони були відфільтровані */}
-        {filteredCards.length > 0 && <div><Button className='d-flex gap-1 justify-content-center align-items-center' onClick={() => dispatch(unsortedCards())}><IoChevronBack />Back to all cards...</Button></div>}
+        {/* {filteredCards.length > 0 && <div><Button className='d-flex gap-1 justify-content-center align-items-center' onClick={() => dispatch(unsortedCards())}><IoChevronBack />Back to all cards...</Button></div>} */}
 
       </div>
     </section>

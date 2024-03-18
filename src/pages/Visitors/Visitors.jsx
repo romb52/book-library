@@ -5,7 +5,7 @@ import { Button, Form, InputGroup } from 'react-bootstrap';
 import { filterVisitors, sortVisitors, unsortedVisitors } from '../../share/reducers/visitor.reducer';
 import { MdEdit } from "react-icons/md";
 import { FaPlus, FaSortDown, FaSortAlphaDown, FaSortNumericDown, FaSearch } from "react-icons/fa";
-import { IoChevronBack, IoSearch } from "react-icons/io5";
+import { IoChevronBack, IoSearch, IoReturnUpBack } from "react-icons/io5";
 import Modal from '../../components/modal/Modal';
 import styles from '../Visitors/Visitors.module.css';
 import AddVisitorForm from '../../components/ModalContent/AddVisitorForm/AddVisitorForm';
@@ -33,7 +33,7 @@ function Visitors() {
   const indexOfFirstVisitor = indexOfLastVisitor - visitorsPerPage;
   const currentVisitors = visitors.slice(indexOfFirstVisitor, indexOfLastVisitor);
   const currentFilteredVisitors = filteredVisitors.slice(indexOfFirstVisitor, indexOfLastVisitor);
-  
+
   // Ефект, який прокручує вікно до гори при зміні currentPage
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -72,7 +72,7 @@ function Visitors() {
         {/* Заголовок та кнопка для відкриття модального вікна для додавання нового відвідувача */}
         <div className={`d-flex justify-content-between ${styles.titlewrap}`}>
           <h2>ALL VISITORS:</h2>
-          <Button className='d-flex gap-1 justify-content-center align-items-center' onClick={() => openModal(<AddVisitorForm openModal={openModal}/>)}> <FaPlus /> New visitor</Button>
+          <Button className='d-flex gap-1 justify-content-center align-items-center' onClick={() => openModal(<AddVisitorForm openModal={openModal} />)}> <FaPlus /> New visitor</Button>
         </div>
 
         {/* Модальне вікно для додавання та редагування відвідувачів */}
@@ -95,13 +95,13 @@ function Visitors() {
               <InputGroup >
                 <InputGroup.Text >Sort by:</InputGroup.Text>
                 <Form.Select value={sortField} onChange={sortChange}>
-                <option value="name">name</option>
-                <option value="id">id</option>
-              </Form.Select>
+                  <option value="name">name</option>
+                  <option value="id">id</option>
+                </Form.Select>
                 <Button className='d-flex gap-1 align-items-center' variant='primary' type='submit'>
                   {sortField === 'id' ? <FaSortNumericDown /> : <FaSortAlphaDown />}
                 </Button>
-              </InputGroup>  
+              </InputGroup>
             </Form>
           </div>
 
@@ -117,17 +117,17 @@ function Visitors() {
               <Button className='my-3 d-flex gap-1 align-items-center' variant='primary' type='submit'><IoSearch />
                 Search
               </Button> */}
-               <InputGroup >
+              <InputGroup >
                 <InputGroup.Text >Search:</InputGroup.Text>
                 <Form.Control
-                name='search'        
-                value={searchQuery}
-                onChange={(e) => searchInput(e)}
-              />
+                  name='search'
+                  value={searchQuery}
+                  onChange={(e) => searchInput(e)}
+                />
                 <Button className='d-flex gap-1 align-items-center' variant='primary' type='submit'>
-                <FaSearch  />
+                  <FaSearch />
                 </Button>
-              </InputGroup> 
+              </InputGroup>
             </Form>
           </div>
         </div>
@@ -153,7 +153,7 @@ function Visitors() {
               <p data-label="Phone" className='justify-content-center'>{visitor.tel}</p>
 
               <Button className='d-flex gap-1 justify-content-center align-items-center' variant="success"
-                onClick={() => openModal(<EditVisitorForm visitorId={visitor.id} setIsModalOpen={setIsModalOpen} openModal={openModal}/>)}>
+                onClick={() => openModal(<EditVisitorForm visitorId={visitor.id} setIsModalOpen={setIsModalOpen} openModal={openModal} />)}>
                 <MdEdit size={18} /> Edit
               </Button>
             </div>
@@ -165,7 +165,7 @@ function Visitors() {
               <p data-label="Phone" className='justify-content-center'>{visitor.tel}</p>
 
               <Button className='d-flex gap-1 justify-content-center align-items-center' variant="success"
-                onClick={() => openModal(<EditVisitorForm visitorId={visitor.id} setIsModalOpen={setIsModalOpen} openModal={openModal}/>)}>
+                onClick={() => openModal(<EditVisitorForm visitorId={visitor.id} setIsModalOpen={setIsModalOpen} openModal={openModal} />)}>
                 <MdEdit size={18} />Edit
               </Button>
             </div>
@@ -173,41 +173,48 @@ function Visitors() {
 
         </div>
 
-        {/* Відображення пагінації */}
-        {filteredVisitors.length > 0 ? (
-          <div className={styles.pagination}>
-            <ul className='pagination'>
-              {Array.from({ length: Math.ceil(filteredVisitors.length / visitorsPerPage) }).map((_, index) => (
-                <li key={index} className='page-item'>
-                  <button
-                    className='page-link'
-                    onClick={() => setCurrentPage(index + 1)}
-                  >
-                    {index + 1}
-                  </button>
-                </li>
-              ))}
-            </ul>
-          </div>
-        ) : (
-          <div className={styles.pagination}>
-            <ul className='pagination'>
-              {Array.from({ length: Math.ceil(visitors.length / visitorsPerPage) }).map((_, index) => (
-                <li key={index} className='page-item'>
-                  <button
-                    className='page-link'
-                    onClick={() => setCurrentPage(index + 1)}
-                  >
-                    {index + 1}
-                  </button>
-                </li>
-              ))}
-            </ul>
-          </div>
-        )}
+        <div className={styles.footerFlex}>
+          {/* Кнопка для відображення всіх книг, якщо відфільтровані */}
+          {filteredVisitors.length > 0 && <div className={styles.leftContent}><Button variant="outline-primary" className='d-flex gap-1 justify-content-center align-items-center' onClick={() => dispatch(unsortedVisitors())}>
+            <IoReturnUpBack />Back to all visitors...</Button></div>}
+           
+
+          {/* Відображення пагінації */}
+          {filteredVisitors.length > 0 ? (
+            <div className={styles.pagination}>
+              <ul className='pagination'>
+                {Array.from({ length: Math.ceil(filteredVisitors.length / visitorsPerPage) }).map((_, index) => (
+                  <li key={index} className='page-item'>
+                    <button
+                      className='page-link'
+                      onClick={() => setCurrentPage(index + 1)}
+                    >
+                      {index + 1}
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ) : (
+            <div className={styles.pagination}>
+              <ul className='pagination'>
+                {Array.from({ length: Math.ceil(visitors.length / visitorsPerPage) }).map((_, index) => (
+                  <li key={index} className='page-item'>
+                    <button
+                      className='page-link'
+                      onClick={() => setCurrentPage(index + 1)}
+                    >
+                      {index + 1}
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+        </div>
 
         {/* Кнопка для повернення до всіх відвідувачів, якщо вони були відфільтровані */}
-        {filteredVisitors.length > 0 && <div><Button className='d-flex gap-1 justify-content-center align-items-center' onClick={() => dispatch(unsortedVisitors())}> <IoChevronBack /> Back to all visitors...</Button></div>}
+        {/* {filteredVisitors.length > 0 && <div><Button className='d-flex gap-1 justify-content-center align-items-center' onClick={() => dispatch(unsortedVisitors())}> <IoChevronBack /> Back to all visitors...</Button></div>} */}
 
       </div>
     </section>
