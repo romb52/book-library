@@ -1,6 +1,6 @@
 import { withLayout } from '../../components/Main/Main';
 import { useSelector, useDispatch } from 'react-redux';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Button, Form, InputGroup } from 'react-bootstrap';
 import { filterVisitors, sortVisitors, unsortedVisitors } from '../../share/reducers/visitor.reducer';
 import { MdEdit } from "react-icons/md";
@@ -33,6 +33,11 @@ function Visitors() {
   const indexOfFirstVisitor = indexOfLastVisitor - visitorsPerPage;
   const currentVisitors = visitors.slice(indexOfFirstVisitor, indexOfLastVisitor);
   const currentFilteredVisitors = filteredVisitors.slice(indexOfFirstVisitor, indexOfLastVisitor);
+  
+  // Ефект, який прокручує вікно до гори при зміні currentPage
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, [currentPage]);
 
   const sortChange = (e) => {         // Вибір і сортування полів для сортування відвідувачів
     setSortField(e.target.value); // Оновлення поля сортування при зміні вибору
@@ -76,8 +81,8 @@ function Visitors() {
         </Modal>
 
         {/* Форми для сортування */}
-        <div className='row justify-content-between'>
-          <div className="col-5 pe-1">
+        <div className='rowGroupForms'>
+          <div className="sortForm">
             <Form className='d-flex gap-2 my-3 align-items-center' onSubmit={(e) => submitSort(e)}>
               {/* <Form.Label style={{ whiteSpace: 'nowrap' }}>Sort by:</Form.Label>
               <Form.Select value={sortField} onChange={sortChange}>
@@ -101,7 +106,7 @@ function Visitors() {
           </div>
 
           {/* Форми для пошуку */}
-          <div className='col-5 ps-1'>
+          <div className='searchForm'>
             <Form className='d-flex gap-2 my-3 align-items-center' onSubmit={(e) => submitSearch(e)}>
               {/* <Form.Label>Search:</Form.Label>
               <Form.Control
@@ -143,9 +148,9 @@ function Visitors() {
           {/* Відображення відфільтрованих або всіх відвідувачів */}
           {filteredVisitors.length > 0 ? currentFilteredVisitors.map((visitor, i) => (
             <div key={visitor.id} className={styles.item}>
-              <p>{indexOfFirstVisitor + i + 1}</p>
-              <p>{visitor.name}</p>
-              <p className='justify-content-center'>{visitor.tel}</p>
+              <p data-label="ID">{indexOfFirstVisitor + i + 1}</p>
+              <p data-label="Name">{visitor.name}</p>
+              <p data-label="Phone" className='justify-content-center'>{visitor.tel}</p>
 
               <Button className='d-flex gap-1 justify-content-center align-items-center' variant="success"
                 onClick={() => openModal(<EditVisitorForm visitorId={visitor.id} setIsModalOpen={setIsModalOpen} openModal={openModal}/>)}>
@@ -155,9 +160,9 @@ function Visitors() {
 
           )) : currentVisitors.map((visitor, i) => (
             <div key={visitor.id} className={styles.item}>
-              <p>{indexOfFirstVisitor + i + 1}</p>
-              <p>{visitor.name}</p>
-              <p className='justify-content-center'>{visitor.tel}</p>
+              <p data-label="ID">{indexOfFirstVisitor + i + 1}</p>
+              <p data-label="Name">{visitor.name}</p>
+              <p data-label="Phone" className='justify-content-center'>{visitor.tel}</p>
 
               <Button className='d-flex gap-1 justify-content-center align-items-center' variant="success"
                 onClick={() => openModal(<EditVisitorForm visitorId={visitor.id} setIsModalOpen={setIsModalOpen} openModal={openModal}/>)}>

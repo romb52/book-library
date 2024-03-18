@@ -217,7 +217,7 @@ export default function EditBookForm({ bookId, setIsModalOpen, openModal }) {
         {/* <Button className='my-3' variant='primary' type='submit'>
           EDIT BOOK
         </Button> */}
-        <Button className='d-flex gap-1 justify-content-center align-items-center'
+        <Button className='d-flex  justify-content-center align-items-center'
           variant='danger'
           onClick={() => deleteBook(book.id)}
         >
@@ -225,12 +225,12 @@ export default function EditBookForm({ bookId, setIsModalOpen, openModal }) {
           DELETE BOOK
         </Button>
 
-        <div className='d-flex justify-content-center'>
-          <Button className='mt-3 me-2 w-50' variant='outline-secondary' onClick={() => openModal()}>
+        <div className='modalContentBtnGroup'>
+          <Button className='modalContentBtn me-2 ' variant='outline-secondary' onClick={() => openModal()}>
             CANCEL
           </Button>
 
-          <Button className='mt-3 w-50' variant='primary' type='submit'>
+          <Button className='modalContentBtn ' variant='primary' type='submit'>
             EDIT BOOK
           </Button>
         </div>

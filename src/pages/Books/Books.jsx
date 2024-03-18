@@ -1,7 +1,7 @@
 
 import { withLayout } from '../../components/Main/Main';
 import { useSelector, useDispatch } from 'react-redux';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Button, Form, InputGroup } from 'react-bootstrap';
 import { sortBooks, filterBooks, unsortedBooks } from '../../share/reducers/books.reducer';
 import { MdEdit } from "react-icons/md";
@@ -34,6 +34,11 @@ function Books() {
   const indexOfFirstBook = indexOfLastBook - booksPerPage;
   const currentBooks = books.slice(indexOfFirstBook, indexOfLastBook);
   const currentFilteredBooks = filteredBooks.slice(indexOfFirstBook, indexOfLastBook);
+
+  // Ефект, який прокручує вікно до гори при зміні currentPage
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, [currentPage]);
 
   const sortChange = (e) => {
     setSortField(e.target.value); // Оновлення поля сортування при зміні вибору
@@ -75,8 +80,8 @@ function Books() {
         </Modal>
 
         {/* Форми для сортування  */}
-        <div className='row justify-content-between'>
-          <div className="col-5 pe-1">
+        <div className='rowGroupForms'>
+          <div className="sortForm ">
             <Form className='d-flex gap-2 my-3 align-items-center' onSubmit={(e) => submitSort(e)}>
               {/* <Form.Label style={{ whiteSpace: 'nowrap' }}>Sort by:</Form.Label>
               <Form.Select value={sortField} onChange={sortChange}>
@@ -103,7 +108,7 @@ function Books() {
           </div>
 
           {/* Форми для пошуку */}
-          <div className='col-5 ps-1'>
+          <div className='searchForm '>
             <Form className='d-flex gap-2 my-3 align-items-center' onSubmit={(e) => submitSearch(e)}>
               {/* <Form.Label>Search:</Form.Label>
               <Form.Control
@@ -157,13 +162,13 @@ function Books() {
           {/* Відображення відфільтрованих або всіх книг */}
           {filteredBooks.length > 0 ? currentFilteredBooks.map((book, i) => (
             <div key={book.id} className={styles.item}>
-              <p>{indexOfFirstBook + i + 1}</p>
-              <p>{book.title}</p>
-              <p>{book.author}</p>
-              <p className='justify-content-center'>{book.publicationYear}</p>
-              <p className='justify-content-center text-center'>{book.publisher}</p>
-              <p className='justify-content-center'>{book.pageCount}</p>
-              <p className='justify-content-center'>{book.copiesAvailable}</p>
+              <p data-label="ID">{indexOfFirstBook + i + 1}</p>
+              <p data-label="Title">{book.title}</p>
+              <p data-label="Author">{book.author}</p>
+              <p data-label="Publication Year" className='justify-content-center'>{book.publicationYear}</p>
+              <p data-label="Publisher" className='justify-content-center '>{book.publisher}</p>
+              <p data-label="Page Count" className='justify-content-center'>{book.pageCount}</p>
+              <p data-label="Copies Available" className='justify-content-center'>{book.copiesAvailable}</p>
 
               <Button className='d-flex gap-1 justify-content-center align-items-center' variant="success"
                 onClick={() => openModal(<EditBookForm bookId={book.id} setIsModalOpen={setIsModalOpen} openModal={openModal} />)}>
@@ -173,13 +178,13 @@ function Books() {
 
           )) : currentBooks.map((book, i) => (
             <div key={book.id} className={styles.item}>
-              <p>{indexOfFirstBook + i + 1}</p>
-              <p>{book.title}</p>
-              <p>{book.author}</p>
-              <p className='justify-content-center'>{book.publicationYear}</p>
-              <p className='justify-content-center text-center'>{book.publisher}</p>
-              <p className='justify-content-center'>{book.pageCount}</p>
-              <p className='justify-content-center'>{book.copiesAvailable}</p>
+              <p data-label="ID">{indexOfFirstBook + i + 1}</p>
+              <p data-label="Title">{book.title}</p>
+              <p data-label="Author">{book.author}</p>
+              <p data-label="Publication Year" className='justify-content-center'>{book.publicationYear}</p>
+              <p data-label="Publisher" className='justify-content-center '>{book.publisher}</p>
+              <p data-label="Page Count" className='justify-content-center'>{book.pageCount}</p>
+              <p data-label="Copies Available" className='justify-content-center'>{book.copiesAvailable}</p>
 
               <Button className='d-flex gap-1 justify-content-center align-items-center' variant="success"
                 onClick={() => openModal(<EditBookForm bookId={book.id} setIsModalOpen={setIsModalOpen} openModal={openModal} />)}>

@@ -1,6 +1,6 @@
 import { withLayout } from '../../components/Main/Main';
 import { useSelector, useDispatch } from 'react-redux';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Button, Form, InputGroup } from 'react-bootstrap';
 import { sortCards, filterCards, unsortedCards, updateCard } from '../../share/reducers/cards.reducer';
 import { increaseBookCount } from '../../share/reducers/books.reducer';
@@ -32,6 +32,11 @@ function Cards() {
   const indexOfFirstCard = indexOfLastCard - cardsPerPage;
   const currentCards = cards.slice(indexOfFirstCard, indexOfLastCard);
   const currentFilteredCards = filteredCards.slice(indexOfFirstCard, indexOfLastCard);
+
+  // Ефект, який прокручує вікно до гори при зміні currentPage
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, [currentPage]);
 
   const sortChange = (e) => {         // Обробник зміни сортування
     setSortField(e.target.value); // Оновлення поля сортування при зміні вибору
@@ -85,8 +90,8 @@ function Cards() {
         </Modal>
 
         {/* Форми для сортування */}
-        <div className='row justify-content-between'>
-          <div className="col-5 pe-1">
+        <div className='rowGroupForms'>
+          <div className="sortForm">
             <Form className='d-flex gap-2 my-3 align-items-center' onSubmit={(e) => submitSort(e)}>
               {/* <Form.Label style={{ whiteSpace: 'nowrap' }}>Sort by:</Form.Label>
               <Form.Select value={sortField} onChange={sortChange}>
@@ -114,7 +119,7 @@ function Cards() {
           </div>
 
           {/* Форми для пошуку */}
-          <div className='col-5 ps-1'>
+          <div className='searchForm'>
             <Form className='d-flex gap-2 my-3 align-items-center' onSubmit={(e) => submitSearch(e)}>
               {/* <Form.Label>Search:</Form.Label>
               <Form.Control
@@ -162,20 +167,20 @@ function Cards() {
           {/* Відображення відфільтрованих або всіх карток */}
           {filteredCards.length > 0 ? currentFilteredCards.map((card, i) => (
             <div key={card.id} className={styles.item}>
-              <p>{indexOfFirstCard + i + 1}</p>
-              <p>{card.visitor}</p>
-              <p>{card.book}</p>
-              <p>{card.borrowDate}</p>
-              {card.returnDate ? <p >{card.returnDate}</p> : <Button onClick={() => setReturnDate(card.id)} variant="warning"><GiReturnArrow /> </Button>}
+              <p data-label="ID">{indexOfFirstCard + i + 1}</p>
+              <p data-label="Visitior">{card.visitor}</p>
+              <p data-label="Book">{card.book}</p>
+              <p data-label="Borrow date">{card.borrowDate}</p>
+              {card.returnDate ? <p data-label="Return date">{card.returnDate}</p> : <Button onClick={() => setReturnDate(card.id)} variant="warning"><GiReturnArrow /> Return</Button>}
             </div>
 
           )) : currentCards.map((card, i) => (
             <div key={card.id} className={styles.item}>
-              <p>{indexOfFirstCard + i + 1}</p>
-              <p>{card.visitor}</p>
-              <p>{card.book}</p>
-              <p >{card.borrowDate}</p>
-              {card.returnDate ? <p >{card.returnDate}</p> : <Button onClick={() => setReturnDate(card.id)} variant="warning"><GiReturnArrow /> </Button>}
+              <p data-label="ID">{indexOfFirstCard + i + 1}</p>
+              <p data-label="Visitior">{card.visitor}</p>
+              <p data-label="Book">{card.book}</p>
+              <p data-label="Borrow date">{card.borrowDate}</p>
+              {card.returnDate ? <p data-label="Return date">{card.returnDate}</p> : <Button onClick={() => setReturnDate(card.id)} variant="warning"><GiReturnArrow /> Return</Button>}
             </div>
           ))}
 

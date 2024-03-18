@@ -87,12 +87,12 @@ export default function AddVisitorForm({ openModal }) {
                     </Form.Select>
                 </FloatingLabel>
 
-                <div className='d-flex justify-content-center'>
-                    <Button className='mt-3 me-2 w-50' variant='outline-secondary' onClick={() => openModal()}>
+                <div className='modalContentBtnGroup'>
+                    <Button className='modalContentBtn me-2' variant='outline-secondary' onClick={() => openModal()}>
                         CANCEL
                     </Button>
 
-                    <Button className='d-flex gap-1  w-50 justify-content-center align-items-center mt-3' variant='primary' type='submit'><FaRegSave />
+                    <Button className='d-flex gap-2  justify-content-center align-items-center modalContentBtn' variant='primary' type='submit'><FaRegSave />
                         SAVE CARD
                     </Button>
                 </div>
