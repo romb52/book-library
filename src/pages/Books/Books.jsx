@@ -5,8 +5,8 @@ import { useState, useEffect } from 'react';
 import { Button, Form, InputGroup } from 'react-bootstrap';
 import { sortBooks, filterBooks, unsortedBooks } from '../../share/reducers/books.reducer';
 import { MdEdit } from "react-icons/md";
-import { FaPlus, FaSortDown, FaSortAlphaDown, FaSortNumericDown, FaSearch } from "react-icons/fa";
-import { IoChevronBack, IoSearch, IoReturnUpBack } from "react-icons/io5";
+import { FaPlus, FaSortAlphaDown, FaSortNumericDown, FaSearch } from "react-icons/fa";
+import { IoReturnUpBack } from "react-icons/io5";
 import Modal from '../../components/modal/Modal';
 import AddBookForm from '../../components/ModalContent/AddBookForm/AddBookForm';
 import EditBookForm from '../../components/ModalContent/EditBookForm/EditBookForm';
@@ -33,7 +33,7 @@ function Books() {
   const indexOfLastBook = currentPage * booksPerPage;
   const indexOfFirstBook = indexOfLastBook - booksPerPage;
   const currentBooks = books.slice(indexOfFirstBook, indexOfLastBook);
-  const currentFilteredBooks = filteredBooks.slice(indexOfFirstBook, indexOfLastBook);
+  const currentFilteredBooks = filteredBooks.slice(indexOfFirstBook, indexOfLastBook);  
 
   // Ефект, який прокручує вікно до гори при зміні currentPage
   useEffect(() => {
@@ -55,6 +55,7 @@ function Books() {
 
   const submitSearch = (e) => {         // Обробник подання пошукового запиту
     e.preventDefault();
+    setCurrentPage(1);
     dispatch(filterBooks(searchQuery)); // Викликаємо дію для фільтрації книг з введеним пошуковим запитом
     setSearchQuery('');
   };
@@ -83,16 +84,6 @@ function Books() {
         <div className='rowGroupForms'>
           <div className="sortForm ">
             <Form className='d-flex gap-2 my-3 align-items-center' onSubmit={(e) => submitSort(e)}>
-              {/* <Form.Label style={{ whiteSpace: 'nowrap' }}>Sort by:</Form.Label>
-              <Form.Select value={sortField} onChange={sortChange}>
-                <option value="author">author</option>
-                <option value="title">title</option>
-                <option value="copiesAvailable">count</option>
-              </Form.Select>
-              <Button className='my-3 d-flex gap-1 align-items-center' variant='primary' type='submit'><FaSortDown />
-                Sort
-              </Button> */}
-
               <InputGroup >
                 <InputGroup.Text >Sort by:</InputGroup.Text>
                 <Form.Select value={sortField} onChange={sortChange}>
@@ -110,15 +101,6 @@ function Books() {
           {/* Форми для пошуку */}
           <div className='searchForm '>
             <Form className='d-flex gap-2 my-3 align-items-center' onSubmit={(e) => submitSearch(e)}>
-              {/* <Form.Label>Search:</Form.Label>
-              <Form.Control
-                name='search'
-                value={searchQuery}
-                onChange={(e) => searchInput(e)}
-              />
-              <Button className='my-3 d-flex gap-1 align-items-center' variant='primary' type='submit'><IoSearch />
-                Search
-              </Button> */}
               <InputGroup >
                 <InputGroup.Text >Search:</InputGroup.Text>
                 <Form.Control
@@ -138,24 +120,12 @@ function Books() {
         <div className={styles.grid}>
           <div key='head-book' className={`${styles.item} ${styles.tableTitle}`}>
             <p>id</p>
-            <p>
-              Title
-            </p>
-            <p>
-              Author
-            </p>
-            <p>
-              Publication year
-            </p>
-            <p>
-              Publisher
-            </p>
-            <p>
-              Page count
-            </p>
-            <p>
-              Copies available
-            </p>
+            <p>Title</p>
+            <p>Author</p>
+            <p>Publication year</p>
+            <p>Publisher</p>
+            <p>Page count</p>
+            <p>Copies available</p>
             <p>Edit</p>
           </div>
 
@@ -196,9 +166,14 @@ function Books() {
         </div>
 
         <div className={styles.footerFlex}>
+
           {/* Кнопка для відображення всіх книг, якщо відфільтровані */}
-          {filteredBooks.length > 0 && <div className={styles.leftContent}><Button variant="outline-primary" className='d-flex gap-1 justify-content-center align-items-center' onClick={() => dispatch(unsortedBooks())}>
-            <IoReturnUpBack />Back to all books</Button></div>}
+          {filteredBooks.length > 0 &&
+            <div className={styles.leftContent}>
+              <Button variant="outline-primary" className='d-flex gap-1 justify-content-center align-items-center' onClick={() => dispatch(unsortedBooks())}>
+                <IoReturnUpBack />Back to all books
+              </Button>
+            </div>}
 
           {/* Пагінація */}
           {filteredBooks.length > 0 ? (
@@ -233,9 +208,6 @@ function Books() {
             </div>
           )}
         </div>
-
-        {/* Кнопка для відображення всіх книг, якщо відфільтровані */}
-        {/* {filteredBooks.length > 0 && <div><Button className='d-flex gap-1 justify-content-center align-items-center' onClick={() => dispatch(unsortedBooks())}><IoChevronBack />Back to all books...</Button></div>} */}
 
       </div>
     </section>

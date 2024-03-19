@@ -4,8 +4,8 @@ import { useState, useEffect } from 'react';
 import { Button, Form, InputGroup } from 'react-bootstrap';
 import { filterVisitors, sortVisitors, unsortedVisitors } from '../../share/reducers/visitor.reducer';
 import { MdEdit } from "react-icons/md";
-import { FaPlus, FaSortDown, FaSortAlphaDown, FaSortNumericDown, FaSearch } from "react-icons/fa";
-import { IoChevronBack, IoSearch, IoReturnUpBack } from "react-icons/io5";
+import { FaPlus, FaSortAlphaDown, FaSortNumericDown, FaSearch } from "react-icons/fa";
+import { IoReturnUpBack } from "react-icons/io5";
 import Modal from '../../components/modal/Modal';
 import styles from '../Visitors/Visitors.module.css';
 import AddVisitorForm from '../../components/ModalContent/AddVisitorForm/AddVisitorForm';
@@ -40,8 +40,7 @@ function Visitors() {
   }, [currentPage]);
 
   const sortChange = (e) => {         // Вибір і сортування полів для сортування відвідувачів
-    setSortField(e.target.value); // Оновлення поля сортування при зміні вибору
-    //console.log(e.target.value)
+    setSortField(e.target.value); // Оновлення поля сортування при зміні вибору  
   };
 
   const submitSort = (e) => {          // Обробник подання сортування
@@ -55,6 +54,7 @@ function Visitors() {
 
   const submitSearch = (e) => {         // Обробник подання пошукового запиту  
     e.preventDefault();
+    setCurrentPage(1);
     dispatch(filterVisitors(searchQuery)); // Викликаємо дію для фільтрації книг з введеним пошуковим запитом
     setSearchQuery('');
   };
@@ -84,14 +84,6 @@ function Visitors() {
         <div className='rowGroupForms'>
           <div className="sortForm">
             <Form className='d-flex gap-2 my-3 align-items-center' onSubmit={(e) => submitSort(e)}>
-              {/* <Form.Label style={{ whiteSpace: 'nowrap' }}>Sort by:</Form.Label>
-              <Form.Select value={sortField} onChange={sortChange}>
-                <option value="name">name</option>
-                <option value="id">id</option>
-              </Form.Select>
-              <Button className='my-3 d-flex gap-1 align-items-center' variant='primary' type='submit'><FaSortDown />
-                Sort
-              </Button> */}
               <InputGroup >
                 <InputGroup.Text >Sort by:</InputGroup.Text>
                 <Form.Select value={sortField} onChange={sortChange}>
@@ -108,15 +100,6 @@ function Visitors() {
           {/* Форми для пошуку */}
           <div className='searchForm'>
             <Form className='d-flex gap-2 my-3 align-items-center' onSubmit={(e) => submitSearch(e)}>
-              {/* <Form.Label>Search:</Form.Label>
-              <Form.Control
-                name='search'
-                value={searchQuery}
-                onChange={(e) => searchInput(e)}
-              />
-              <Button className='my-3 d-flex gap-1 align-items-center' variant='primary' type='submit'><IoSearch />
-                Search
-              </Button> */}
               <InputGroup >
                 <InputGroup.Text >Search:</InputGroup.Text>
                 <Form.Control
@@ -136,12 +119,8 @@ function Visitors() {
         <div className={styles.grid}>
           <div key='head-book' className={`${styles.item} ${styles.tableTitle}`}>
             <p>id</p>
-            <p>
-              Name
-            </p>
-            <p>
-              Phone
-            </p>
+            <p>Name</p>
+            <p>Phone</p>
             <p>Edit</p>
           </div>
 
@@ -177,7 +156,7 @@ function Visitors() {
           {/* Кнопка для відображення всіх книг, якщо відфільтровані */}
           {filteredVisitors.length > 0 && <div className={styles.leftContent}><Button variant="outline-primary" className='d-flex gap-1 justify-content-center align-items-center' onClick={() => dispatch(unsortedVisitors())}>
             <IoReturnUpBack />Back to all visitors...</Button></div>}
-           
+
 
           {/* Відображення пагінації */}
           {filteredVisitors.length > 0 ? (
@@ -211,10 +190,7 @@ function Visitors() {
               </ul>
             </div>
           )}
-        </div>
-
-        {/* Кнопка для повернення до всіх відвідувачів, якщо вони були відфільтровані */}
-        {/* {filteredVisitors.length > 0 && <div><Button className='d-flex gap-1 justify-content-center align-items-center' onClick={() => dispatch(unsortedVisitors())}> <IoChevronBack /> Back to all visitors...</Button></div>} */}
+        </div>       
 
       </div>
     </section>

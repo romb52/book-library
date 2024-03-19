@@ -8,9 +8,7 @@ import styles from '../AddBookForm/AddBookForm.module.css';
 
 export default function AddVisitorForm({ openModal }) {
     const visitors = useSelector(state => state.visitors.visitors);
-    const books = useSelector(state => state.books.books);
-
-    // visitor: visitors.length > 0 ? visitors[0].name : "", book: books.length > 0 ? books[0].title : ""
+    const books = useSelector(state => state.books.books);   
 
     const initialForm = { id: 0, visitorId: 0, bookId: 0, visitor: "", book: "", borrowDate: "", returnDate: "" };
     const dispatch = useDispatch();
@@ -18,15 +16,14 @@ export default function AddVisitorForm({ openModal }) {
 
     const changeInput = (e) => {
         const id = e.target.options[e.target.selectedIndex].getAttribute('data-id');
-        // console.log(e.target.name, e.target.value, id);
         if (id) {
             setForm((prev) => {
                 return { ...prev, [e.target.name]: e.target.value, [`${e.target.name}Id`]: id };
             });
         }
     };
+    
     const submitNewCard = (e) => {
-        //console.log(form)
         e.preventDefault();
         if (form.book === "" || form.visitor === "") { return };
         const id = Date.now();
@@ -40,26 +37,7 @@ export default function AddVisitorForm({ openModal }) {
             <h2 className={styles.title}>New card</h2>
 
             <Form className='d-flex flex-column gap-1 mb-2' onSubmit={(e) => submitNewCard(e)}>
-                {/* <Form.Group className='mb-3' controlId='name'>
-                    <Form.Label>Visitor</Form.Label>
-                    <Form.Select name='visitor' value={form.visitor} onChange={(e) => changeInput(e)}>
-                        <option>Please select a visitor from the dropdown list</option>
-                        {visitors.map(visitor => (
-                            <option key={visitor.id} value={visitor.name} data-id={visitor.id}>{visitor.name}</option>
-                        ))}
-                    </Form.Select>
-                </Form.Group>
-
-                <Form.Group className='mb-3' controlId='tel'>
-                    <Form.Label>Book</Form.Label>
-                    <Form.Select name='book' value={form.book} onChange={(e) => changeInput(e)}>
-                        <option>Please select a book from the dropdown list</option>
-                        {books.map(book => ((book.copiesAvailable > 0) &&
-                            <option key={book.id} data-id={book.id} value={book.title}>{book.title}</option>
-                        ))}
-                    </Form.Select>
-                </Form.Group> */}
-
+                
                 <FloatingLabel
                     controlId="visitor"
                     label="Visitor"
@@ -72,7 +50,6 @@ export default function AddVisitorForm({ openModal }) {
                         ))}
                     </Form.Select>
                 </FloatingLabel>
-
                 
                 <FloatingLabel
                     controlId="book"

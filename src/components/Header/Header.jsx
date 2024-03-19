@@ -17,8 +17,10 @@ export default function Header() {
     <header>
       <div className={styles.headerTop}>
         <div className='container d-flex align-items-center gap-3'>
-          <GiBookCover size={30} />
-          <h2>LIBRARY</h2>
+          <Link className={styles.logo} to="/book-library" >
+            <GiBookCover size={30} />
+            <h2>LIBRARY</h2>
+          </Link>
         </div>
       </div>
       <div className={styles.headerMenu}>
@@ -32,7 +34,7 @@ export default function Header() {
               <Link onClick={toggleMobileMenu} to="/book-library/visitors" className={location.pathname === '/book-library/visitors' ? styles.active : ''}>Visitors</Link>
               <Link onClick={toggleMobileMenu} to="/book-library/cards" className={location.pathname === '/book-library/cards' ? styles.active : ''}>Cards</Link>
               <Link onClick={toggleMobileMenu} to="/book-library/statistics" className={location.pathname === '/book-library/statistics' ? styles.active : ''}>Statistics</Link>
-            </div> 
+            </div>
             <div className='gap-5 mainMenu'>
               <Link to="/book-library" className={location.pathname === '/book-library' ? styles.active : ''}>Books</Link>
               <Link to="/book-library/visitors" className={location.pathname === '/book-library/visitors' ? styles.active : ''}>Visitors</Link>

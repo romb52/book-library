@@ -26,16 +26,13 @@ export const bookSlice = createSlice({
     },
     updateBook: (state, action) => {                   // Оновлення книги за її id
       const { id, ...updatedBook } = action.payload;
-      console.log(id)
       const index = state.books.findIndex(book => book.id === id);
       if (index !== -1) {
-        console.log(index)
         state.books[index] = { ...state.books[index], ...updatedBook };
         localStorage.setItem('books', JSON.stringify(state.books));
 
         if (state.filteredBooks.length > 0){
          const findex = state.filteredBooks.findIndex(book => book.id === id);
-          console.log(findex)
           state.filteredBooks[findex] = { ...state.filteredBooks[findex], ...updatedBook };       
         }
       }

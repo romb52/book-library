@@ -8,10 +8,8 @@ import { withLayout } from '../../components/Main/Main';
 function Errorpage() {
     const location = useLocation();
     const navigate = useNavigate();
-    // console.log(location.pathname);
     useEffect(() => { if (location.pathname !== '/book-library/404') {
-        navigate ('/book-library/404')
-        //console.log(location.pathname);
+        navigate ('/book-library/404');
      } }, [navigate, location]);
     return <section className={styles.bg}>
         <div className="container">
