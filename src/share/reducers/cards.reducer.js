@@ -6,8 +6,8 @@ const storedCards = JSON.parse(localStorage.getItem('cards'));
 if (!storedCards) {
     localStorage.setItem('cards', JSON.stringify(cards));
 }
-const defaultCards = storedCards || cards;
-const initialState = {                         // Початковий стан для зберігання списку карток та фільтрованих карток
+const defaultCards = storedCards || books;
+const initialState = {
     cards: defaultCards,
     filteredCards: [], // Додали поле для зберігання відфільтрованих 
 };
